@@ -71,9 +71,9 @@ class Dinosaur implements AggregateRoot
         $this->eyesColor = $eyesColor;
     }
 
-   public function getBirthdate(): ? \DateTime
+   public function getBirthdate(): ? String
    {
-       return $this->birthdate;
+       return $this->birthdate->format('Y-m-d');
    }
 
    public function setBirthdate(? \DateTime $birthdate): void

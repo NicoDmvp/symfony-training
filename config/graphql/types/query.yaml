@@ -1,0 +1,39 @@
+Query:
+    type: object
+    config:
+        fields:
+            dinosaurs:
+                type: '[Dinosaur!]!'
+                complexity: '@=1 + childrenComplexity'
+                args: { search: { type: 'String' } }
+                resolve:  |
+                    @=query(
+                      "dinosaurs",
+                      args["search"]
+                    )
+            dinosaur:
+                type: 'Dinosaur!'
+                complexity: '@=1 + childrenComplexity'
+                args: { id: { type: 'ID!' } }
+                resolve:  |
+                    @=query(
+                      "dinosaur",
+                      args["id"]
+                    )
+            speciesSearch:
+                type: '[Species!]!'
+                args: { search: { type: 'String' } }
+                resolve: |
+                    @=query(
+                      "speciesSearch",
+                      args["search"]
+                    )
+            species:
+                type: 'Species!'
+                complexity: '@=1 + childrenComplexity'
+                args: { id: { type: 'ID!' } }
+                resolve: |
+                    @=query(
+                      "species",
+                      args["id"]
+                    )

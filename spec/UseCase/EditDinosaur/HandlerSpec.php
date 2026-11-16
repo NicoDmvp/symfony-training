@@ -88,7 +88,7 @@ class HandlerSpec extends ObjectBehavior
             '42', 'Rex', 'male', '1', 10, '#0f0', $birthdate,
         ));
 
-        if ($birthdate != $dinosaur->getBirthdate()) {
+        if ($birthdate->format('Y-m-d') != $dinosaur->getBirthdate()) {
             throw new FailureException('The birthdate was not changed');
         }
     }
