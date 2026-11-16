@@ -9,12 +9,13 @@ use Domain\ReadModel\Dinosaur;
 final readonly class Input
 {
     public function __construct(
-        public string $id,
-        public string $name,
-        public string $gender,
-        public string $speciesId,
-        public int $age,
-        public string $eyesColor
+        public string     $id,
+        public string     $name,
+        public string     $gender,
+        public string     $speciesId,
+        public int        $age,
+        public string     $eyesColor,
+        public ?\DateTime $birthdate = null,
     ) {
     }
 
@@ -26,7 +27,8 @@ final readonly class Input
             $dinosaur->getGender(),
             (string) $dinosaur->getSpecies()->getId(),
             $dinosaur->getAge(),
-            $dinosaur->getEyesColor()
+            $dinosaur->getEyesColor(),
+            $dinosaur->getBirthdate(),
         );
     }
 }
