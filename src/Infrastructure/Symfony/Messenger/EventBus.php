@@ -20,7 +20,7 @@ final class EventBus implements EventBusInterface
     public function dispatch(object $event): void
     {
         try {
-            $this->handle($event);
+            $this->messageBus->dispatch($event);
         } catch (HandlerFailedException $handlerFailedException) {
             $nestedExceptions = $handlerFailedException->getWrappedExceptions();
 
