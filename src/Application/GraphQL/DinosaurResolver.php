@@ -3,22 +3,27 @@
 namespace Application\GraphQL;
 
 use Application\MessageBus\CommandBus;
+use Cassandra\Exception\UnauthorizedException;
 use Domain\Collection\DinosaursCollection;
 use Domain\Exception\DinosaurNotFoundException;
 use Domain\Model\Dinosaur;
 use Domain\UseCase\CreateDinosaur\Input;
+use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 final readonly class DinosaurResolver
 {
     public function __construct(
         private DinosaursCollection $dinosaurs,
         private CommandBus          $commandBus,
+        private Security           $security,
     )
     {
     }
 
     public function dinosaurs(?string $search): array
     {
+        $this->security->getUser() ?? throw new UnauthorizedException();
         return $this->dinosaurs->search($search);
     }
 

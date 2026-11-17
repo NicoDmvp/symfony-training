@@ -3,7 +3,7 @@ Dinosaur:
     config:
         fields:
             id: { type: 'ID!' }
-            name: { type: 'String!' }
+            name: { type: 'String!', deprecationReason: "Use displayName instead" }
             displayName:
                 type: 'String!'
                 complexity: '@=5'

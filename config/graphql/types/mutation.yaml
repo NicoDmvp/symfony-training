@@ -18,3 +18,12 @@ Mutation:
                       "createSpecies",
                       args["input"]
                     )
+            login:
+                type: 'String!'
+                args: { email: String!, password: String!}
+                resolve: |
+                    @=mutation(
+                        "login",
+                        args["email"],
+                        args["password"]
+                    )
