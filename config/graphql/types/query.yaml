@@ -4,6 +4,7 @@ Query:
         fields:
             dinosaurs:
                 type: '[Dinosaur!]!'
+                access: "@=hasRole('ROLE_ADMIN')"
                 complexity: '@=1 + childrenComplexity'
                 args: { search: { type: 'String' } }
                 resolve:  |
@@ -15,6 +16,7 @@ Query:
                 type: 'Dinosaur!'
                 complexity: '@=1 + childrenComplexity'
                 args: { id: { type: 'ID!' } }
+                access: '@=isAuthenticated()'
                 resolve:  |
                     @=query(
                       "dinosaur",

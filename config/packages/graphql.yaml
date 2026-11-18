@@ -13,5 +13,5 @@ overblog_graphql:
         enabled: true
         rethrow_internal_exceptions: true
     security:
-        query_max_complexity: 10
-        query_max_depth: 1
+        query_max_complexity: 50
+        query_max_depth: 2
