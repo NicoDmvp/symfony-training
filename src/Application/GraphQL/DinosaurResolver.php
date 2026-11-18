@@ -3,13 +3,11 @@
 namespace Application\GraphQL;
 
 use Application\MessageBus\CommandBus;
-use Cassandra\Exception\UnauthorizedException;
 use Domain\Collection\DinosaursCollection;
 use Domain\Exception\DinosaurNotFoundException;
 use Domain\Model\Dinosaur;
 use Domain\UseCase\CreateDinosaur\Input;
 use Symfony\Bundle\SecurityBundle\Security;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 final readonly class DinosaurResolver
 {
@@ -23,12 +21,19 @@ final readonly class DinosaurResolver
 
     public function dinosaurs(?string $search): array
     {
-        $this->security->getUser() ?? throw new UnauthorizedException();
         return $this->dinosaurs->search($search);
     }
 
     public function dinosaur(string $id): Dinosaur
     {
+        $user = $this->security->getUser() ?? throw new \RuntimeException('User not authenticated');
+
+        $isGranted = $this->security->isGranted('VIEW_DINOSAURS', $user);
+
+        if (!$isGranted) {
+            throw new \RuntimeException('User not granted');
+        }
+
         return $this->dinosaurs->find($id)
             ?? throw new DinosaurNotFoundException($id);
     }

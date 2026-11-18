@@ -4,3 +4,4 @@ services:
         autoconfigure: true
 
     Infrastructure\Symfony\Security\BearerAuthenticator: {}
+    Infrastructure\Symfony\Security\DinosaurVoter: {}
